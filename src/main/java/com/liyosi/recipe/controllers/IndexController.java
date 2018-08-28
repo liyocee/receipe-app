@@ -11,6 +11,9 @@ public class IndexController {
 
   @RequestMapping({"", "/", "/index.html", "index"})
   public String indexPage() {
+
+    System.out.println("Reload the app...., looks good");
+
     return "index";
   }
 }
