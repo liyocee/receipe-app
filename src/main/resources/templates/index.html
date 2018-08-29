@@ -5,7 +5,25 @@
   <title th:title="Recipe"></title>
 </head>
 <body>
+  <!--/*@thymesVar id="recipes" type="Set<com.liyosi.recipe.domain.Recipe>"*/-->
   <h1 th:text="'Recipe App Auto refresh, i lov eit'"></h1>
+
+  <table class="table table-striped">
+
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="recipe: ${recipes}" >
+        <td th:text="${recipe.id}">Id</td>
+        <td th:text="${recipe.description}">Id</td>
+      </tr>
+    </tbody>
+    
+  </table>
 
 </body>
 </html>

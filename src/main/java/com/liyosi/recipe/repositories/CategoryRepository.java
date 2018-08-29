@@ -15,5 +15,4 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
   Optional<Category> findByIdAndDescription(Long id, String description);
 
   Optional<Category> findByIdOrDescription(Long id, String description);
-
 }
