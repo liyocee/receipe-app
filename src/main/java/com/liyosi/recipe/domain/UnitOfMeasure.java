@@ -19,5 +19,4 @@ public class UnitOfMeasure {
   private Long id;
 
   private String name;
-
 }
