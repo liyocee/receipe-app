@@ -29,7 +29,7 @@ public class IndexController {
 
     Optional<Category> categoryOptional = categoryRepository.findByDescription("Italian");
 
-    log.info("CatId is : " + categoryOptional.get().getId());
+//    log.info("CatId is : " + categoryOptional.get().getId());
 
     model.addAttribute("categories", categoryRepository.findAll());
 
