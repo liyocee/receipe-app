@@ -1,13 +1,10 @@
 package com.liyosi.recipe.controllers;
 
-import com.liyosi.recipe.domain.Category;
-import com.liyosi.recipe.repositories.CategoryRepository;
+import com.liyosi.recipe.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 /**
  * Created by liyosi on Aug, 2018
@@ -16,10 +13,10 @@ import java.util.Optional;
 @Slf4j
 public class IndexController {
 
-  private CategoryRepository categoryRepository;
+  private RecipeRepository recipeRepository;
 
-  public IndexController(CategoryRepository categoryRepository) {
-    this.categoryRepository = categoryRepository;
+  public IndexController(RecipeRepository recipeRepository) {
+    this.recipeRepository = recipeRepository;
   }
 
   @RequestMapping({"", "/", "/index.html", "index"})
@@ -27,11 +24,7 @@ public class IndexController {
 
     log.info("Reload the app...., looks good");
 
-    Optional<Category> categoryOptional = categoryRepository.findByDescription("Italian");
-
-//    log.info("CatId is : " + categoryOptional.get().getId());
-
-    model.addAttribute("categories", categoryRepository.findAll());
+    model.addAttribute("recipes", recipeRepository.findAll());
 
     return "index";
   }

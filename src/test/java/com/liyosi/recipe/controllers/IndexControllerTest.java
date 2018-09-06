@@ -1,7 +1,7 @@
 package com.liyosi.recipe.controllers;
 
-import com.liyosi.recipe.domain.Category;
-import com.liyosi.recipe.repositories.CategoryRepository;
+import com.liyosi.recipe.domain.Recipe;
+import com.liyosi.recipe.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -29,7 +29,7 @@ public class IndexControllerTest {
   IndexController indexController;
 
   @Mock
-  CategoryRepository categoryRepository;
+  RecipeRepository recipeRepository;
 
   @Mock
   Model model;
@@ -37,23 +37,23 @@ public class IndexControllerTest {
   @Before
   public void setUp() throws Exception {
     MockitoAnnotations.initMocks(this);
-    indexController = new IndexController(categoryRepository);
+    indexController = new IndexController(recipeRepository);
   }
 
   @Test
   public void indexPage() throws Exception {
-    String categoryDesc = "Italian";
-    Category category = new Category();
-    category.setId(1L);
-    category.setDescription(categoryDesc);
-    Set<Category> categories = new HashSet<>();
+    String recipeDesc = "Italian";
+    Recipe recipe = new Recipe();
+    recipe.setId(1L);
+    recipe.setDescription(recipeDesc);
+    Set<Recipe> recipes = new HashSet<>();
 
     // given
-    categories.add(new Category());
-    categories.add(new Category());
+    recipes.add(new Recipe());
+    recipes.add(new Recipe());
 
-    when(categoryRepository.findByDescription(categoryDesc)).thenReturn(Optional.of(category));
-    when(categoryRepository.findAll()).thenReturn(categories);
+    when(recipeRepository.findByDescription(recipeDesc)).thenReturn(Optional.of(recipe));
+    when(recipeRepository.findAll()).thenReturn(recipes);
 
     ArgumentCaptor argumentCaptor = ArgumentCaptor.forClass(Set.class) ;
 
@@ -62,7 +62,7 @@ public class IndexControllerTest {
 
     // then
 
-    verify(categoryRepository, times(1)).findByDescription(categoryDesc);
+    verify(recipeRepository, times(1)).findByDescription(recipeDesc);
 
     verify(model, times(1)).addAttribute(eq("categories"), argumentCaptor.capture());
 

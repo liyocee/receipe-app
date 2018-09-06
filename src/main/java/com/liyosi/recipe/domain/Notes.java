@@ -9,6 +9,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Notes {
 
   @Id
@@ -20,8 +21,4 @@ public class Notes {
 
   @Lob
   private String recipeNotes;
-
-  public Notes() {
-  }
-
 }
