@@ -32,7 +32,8 @@ public class UnitOfMeasureRepositoryTestIT {
   @Test
   public void findByNameAfterInsert() throws Exception {
     String uomName = "testing uom";
-    UnitOfMeasure uom = UnitOfMeasure.builder().name(uomName).build();
+    UnitOfMeasure uom = new UnitOfMeasure();
+    uom.setName(uomName);
     unitOfMeasureRepository.save(uom);
 
     assertEquals(unitOfMeasureRepository.findByName(uomName).get().getName(), uomName);
