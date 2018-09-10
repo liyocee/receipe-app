@@ -8,11 +8,13 @@ import com.liyosi.recipe.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -53,7 +55,15 @@ public class UnitOfMeasureController {
 
   @PostMapping
   @RequestMapping(value = "/uom/save", name = "uom")
-  public String saveOrUpdate(@ModelAttribute UnitOfMeasureCommand unitOfMeasureCommand) {
+  public String saveOrUpdate(@Valid @ModelAttribute("uom") UnitOfMeasureCommand unitOfMeasureCommand, BindingResult bindingResult) {
+
+    if (bindingResult.hasErrors()) {
+      bindingResult.getAllErrors().forEach(objectError -> {
+        log.error("Validation error: " + objectError.toString());
+      });
+
+      return "uoms/uomform.html";
+    }
 
     UnitOfMeasureCommand savedUoM = unitOfMeasureService.saveUnitOfMeasureCommand(unitOfMeasureCommand);
 
