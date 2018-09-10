@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Not Found</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="row text-center">
+    <h1>404, resource not found</h1>
+    <!--/*@thymesVar id="getMessage" type="java.lang.Exception"*/-->
+    <p th:text="${exception.getMessage()}"></p>
+  </div>
+</div>
+</body>
+</html>

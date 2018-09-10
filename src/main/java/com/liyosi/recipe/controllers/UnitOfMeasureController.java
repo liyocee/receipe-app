@@ -6,12 +6,11 @@ import com.liyosi.recipe.domain.UnitOfMeasure;
 import com.liyosi.recipe.exceptions.NotFoundException;
 import com.liyosi.recipe.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
@@ -60,5 +59,19 @@ public class UnitOfMeasureController {
     log.info("Saved UoM, Id: " + savedUoM.getId());
 
     return "redirect:/uom/new";
+  }
+
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler(NotFoundException.class)
+  public ModelAndView handleNotFound(Exception exception) {
+    log.error("Resource not found");
+
+    log.error("Error message: " + exception.getMessage());
+
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("404");
+
+    modelAndView.addObject("exception", exception);
+    return modelAndView;
   }
 }
