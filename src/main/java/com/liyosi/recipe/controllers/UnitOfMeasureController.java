@@ -3,6 +3,7 @@ package com.liyosi.recipe.controllers;
 import com.liyosi.recipe.commands.UnitOfMeasureCommand;
 import com.liyosi.recipe.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.liyosi.recipe.domain.UnitOfMeasure;
+import com.liyosi.recipe.exceptions.NotFoundException;
 import com.liyosi.recipe.services.UnitOfMeasureService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class UnitOfMeasureController {
     Optional<UnitOfMeasure> uom = unitOfMeasureService.findById(new Long(id));
 
     if (!uom.isPresent())
-      throw new RuntimeException("UOM with Id: " + id + " not found");
+      throw new NotFoundException("UOM with Id: " + id + " not found");
 
     model.addAttribute("uom", unitOfMeasureToUnitOfMeasureCommand.convert(uom.get()));
 
@@ -52,7 +53,7 @@ public class UnitOfMeasureController {
 
   @PostMapping
   @RequestMapping(value = "/uom/save", name = "uom")
-  public String saveOrUpdae(@ModelAttribute UnitOfMeasureCommand unitOfMeasureCommand) {
+  public String saveOrUpdate(@ModelAttribute UnitOfMeasureCommand unitOfMeasureCommand) {
 
     UnitOfMeasureCommand savedUoM = unitOfMeasureService.saveUnitOfMeasureCommand(unitOfMeasureCommand);
 
